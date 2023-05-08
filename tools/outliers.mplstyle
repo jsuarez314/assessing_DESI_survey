@@ -1,0 +1,12 @@
+# matplotlibrc file
+
+axes.titlesize    : 30
+axes.labelsize    : 25
+lines.linewidth   : 6
+lines.markersize  : 6
+xtick.labelsize   : 25
+ytick.labelsize   : 25
+legend.fontsize     : 25
+figure.figsize      : 7, 7
+figure.facecolor    : white
+figure.titlesize    : 30
