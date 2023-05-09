@@ -48,7 +48,7 @@ class find_outliers():
         self.umap_file_brz = f'{self.outpath}/umap/{self.night}_{self.release}_{self.survey}_brz_spectra_nn{self.nn}_md{self.md}_{self.me}.csv'
         
     def create_dataset(self, release, survey, night, globoutpath):
-        new_releases = ['denali','everest','fuji','guadalupe','iron']
+        new_releases = ['denali','everest','fuji','guadalupe','iron','daily']
         notrr_releases = ['andes','blanc','cascades','denali']
         
         tiles_path   = f'/global/cfs/cdirs/desi/spectro/redux/{release}/tiles'
