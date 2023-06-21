@@ -319,6 +319,7 @@ class find_outliers():
         Z = np.array(df_spec['Z'])
 
         SPECTYPE = np.array(df_spec['SPECTYPE'], dtype='U13')
+        TARGETID = np.array(df_spec['TARGETID'])
         classes = np.sort(np.unique(SPECTYPE))
         SPECTYPE[SPECTYPE == 'GALAXY'] = 0  # GALAXY=0  -   QSO=1    -  STAR=2
         SPECTYPE[SPECTYPE == 'QSO'] = 1
@@ -346,12 +347,14 @@ class find_outliers():
         # Apply a filter on the FOF:    friends>number_friends &  friends<data/# to remove big clusters
         friends_min = []
         spec_friends = []
+        tid_friends = []        
         z_friends = []
         n_members = []  
         for f in friends:
             if (len(f)>=mm) & (len(f)<len(data)*0.2) & (np.average(density[f])<-6.5):
                 friends_min.append(f)
                 spec_friends.append(SPECTYPE[f])
+                tid_friends.append(TARGETID[f])             
                 z_friends.append(Z[f])
                 n_members.append(len(f))
                 
@@ -362,6 +365,12 @@ class find_outliers():
             mean = 0
             std = 0
            
+        tids_outliers = np.concatenate(tid_friends).ravel()
+        #tids_df       = pd.DataFrame(np.c_[tids_outliers], columns=['TARGETID'])
+        #tids_df.to_csv(f'./{inpath}/{imagefile}_TIDS.csv')        
+        
+        np.savetxt(f'./{inpath}/{imagefile}_TIDS.txt', np.c_[tids_outliers], fmt='%d')
+        
         if log == True:
             print('{0} islands for ll {1:.2} with min {2} members!'.format(len(friends_min),ll,mm))
             print('{} outliers identified!'.format(sum(n_members)))                     
